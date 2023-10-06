@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const checkAuth = require("../middleware/check-auth");
-const ProductsController = require("../controllers/products");
+const ProductController = require("../controllers/product-controller");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -26,9 +26,9 @@ const fileFilter = (req, file, callback) => {
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-const Product = require("../models/product");
+router.get("/", ProductController.getAll);
 
-router.get("/", ProductsController.products_get_all);
+router.get("/:productId", ProductController.getById);
 
 // mezi první (path) a poslední (callback) parametr se dá vložit libovolné množství middleware fcí, které se postupně vykonají v uvedneém pořadí
 // v tomto případě jako druhý parametr používáme vytvořený autentizační middleware "checkAuth"
@@ -37,21 +37,16 @@ router.post(
   "/",
   checkAuth,
   upload.single("productImage"),
-  ProductsController.products_create_product
+  ProductController.create
 );
-
-router.get("/:productId", ProductsController.products_get_product);
 
 router.patch(
   "/:productId",
   checkAuth,
-  ProductsController.products_update_product
+  upload.single("productImage"),
+  ProductController.update
 );
 
-router.delete(
-  "/:productId",
-  checkAuth,
-  ProductsController.products_delete_product
-);
+router.delete("/:productId", checkAuth, ProductController.delete);
 
 module.exports = router;
