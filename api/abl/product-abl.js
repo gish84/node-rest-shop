@@ -75,7 +75,7 @@ class ProductAbl {
   /**
    * Creates new product
    * @param {name: string, price: number, productImage: string} dtoIn
-   * @returns {product: Object}
+   * @returns {product: Object} created product
    */
   async create(dtoIn) {
     // HDS 1 - extract values from dtoIn
@@ -109,6 +109,11 @@ class ProductAbl {
     };
   }
 
+  /**
+   * Updates existing product
+   * @param {Object} dtoIn
+   * @returns {product: Object} updated product
+   */
   async update(dtoIn) {
     // HDS 1 - remove undefined values from dtoIn
     Tools.removeUndefinedKeys(dtoIn);
@@ -136,6 +141,11 @@ class ProductAbl {
     };
   }
 
+  /**
+   * Deletes product by id
+   * @param {{id: string}} dtoIn
+   * @returns {}
+   */
   async delete(dtoIn) {
     // HDS 1 - extract values from dtoIn
     const { id } = dtoIn;
