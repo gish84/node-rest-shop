@@ -99,7 +99,14 @@ class ProductAbl {
     }
 
     // HDS 3 - return dtoOut
-    return { product };
+    return {
+      product: {
+        id: product._id,
+        name: product.name,
+        price: product.price,
+        productImage: product.productImage,
+      },
+    };
   }
 
   async update(dtoIn) {
@@ -119,7 +126,14 @@ class ProductAbl {
     }
 
     // HDS 3 - return dtoOut
-    return { product };
+    return {
+      product: {
+        id: product._id,
+        name: product.name,
+        price: product.price,
+        productImage: product.productImage,
+      },
+    };
   }
 
   async delete(dtoIn) {
