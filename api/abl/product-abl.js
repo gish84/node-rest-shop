@@ -154,7 +154,7 @@ class ProductAbl {
     try {
       await ProductDao.delete(id);
     } catch (err) {
-      // A1 - product update failed
+      // A1 - product delete failed
       throw new Errors.Delete.ProductDeleteFailed({
         message: err.message,
         stack: err.stack,
