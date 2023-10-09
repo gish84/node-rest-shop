@@ -3,22 +3,23 @@ const Product = require("../models/product");
 
 class ProductDao {
   /**
-   * Returns all products
-   * @param {string} selectedFields parameters for select() function (which keys should be return for object)
+   * Returns all products according to filter
+   * @param {Object} filter
+   * @param {Object} projection
    * @returns {Object[]} product list
    */
-  async get(selectedFields = "") {
-    return await Product.find().select(selectedFields); // select() - metoda pro upřesnění klíčů, které se mají pro jednotlivé dokumenty vracet (v podstatě projekce)
+  async get(filter = {}, projection = {}) {
+    return await Product.find(filter, projection);
   }
 
   /**
    * Returns product by id
    * @param {string} id
-   * @param {string} selectedFields parameters for select() function (which keys should be return for object)
+   * @param {Object} projection
    * @returns {Object} product
    */
-  async getById(id, selectedFields = "") {
-    return await Product.findById(id).select(selectedFields);
+  async getById(id, projection = {}) {
+    return await Product.findOne({ _id: id }, projection);
   }
 
   /**

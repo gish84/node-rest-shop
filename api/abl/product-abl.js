@@ -11,9 +11,16 @@ class ProductAbl {
   async getAll() {
     // HDS 1 - get product list
     let productList;
+    const projection = {
+      id: "$_id",
+      _id: 0,
+      name: 1,
+      price: 1,
+      productImage: 1,
+    };
 
     try {
-      productList = await ProductDao.get("name price _id productImage");
+      productList = await ProductDao.get({}, projection);
     } catch (err) {
       // A1 - getting product list failed
       throw new Errors.GetAll.GetProductListFailed({
@@ -23,7 +30,7 @@ class ProductAbl {
     }
 
     // HDS 2 - return dtoOut
-    return { count: productList.length, productList };
+    return { count: productList?.length, productList };
   }
 
   /**
@@ -38,8 +45,16 @@ class ProductAbl {
 
     // HDS 2 - get product
     let product;
+    const projection = {
+      id: "$_id",
+      _id: 0,
+      name: 1,
+      price: 1,
+      productImage: 1,
+    };
+
     try {
-      product = await ProductDao.getById(id, "name price _id productImage");
+      product = await ProductDao.getById(id, projection);
     } catch (err) {
       // A1 - getting product failed
       throw new Errors.GetById.ProductGetFailed({
