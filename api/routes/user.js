@@ -1,15 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require("../controllers/user");
+const UserController = require("../controllers/user-controller");
 const checkAuth = require("../middleware/check-auth");
 
-// registrace nového uživatele (vložení nového uživatele do dtb)
-router.post("/signup", UserController.user_signup);
+router.post("/signup", UserController.signUp);
 
-// přihlášení existujícího uživatele
-router.post("/login", UserController.user_login);
+router.post("/login", UserController.login);
 
-// smazání uživatele
-router.delete("/:userId", checkAuth, UserController.user_delete);
+router.delete("/:userId", checkAuth, UserController.delete);
 
 module.exports = router;
